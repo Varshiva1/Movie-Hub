@@ -2,6 +2,7 @@ import React from 'react'
 
 import movies from '../images/movie.png'
 
+import {Link} from 'react-router-dom'
 function NavBar() {
   return (
     
@@ -9,8 +10,9 @@ function NavBar() {
       
       <img src={movies} className='w-[60px]'alt='Movielogo'/>
 
-     <h3 className='text-blue-500'>Movies</h3>
-     <h3 className='text-blue-500'>Watchlist</h3>
+     <Link to ='/' className='text-blue-500'>Movies</Link>
+     <Link to='/watchlist' className='text-blue-500'>Watchlist</Link>
+
 
     </div>
     
