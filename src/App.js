@@ -12,19 +12,19 @@ function App() {
   return (
     <>
       <BrowserRouter>
-      <NavBar/>
+        <NavBar />
 
-      <Routes>
-        <Route path='/' element={
-          <>
-      <Banner/>
-      <Movies/>
-          </>
-        }>
-        </Route>
+        <Routes>
+          <Route path='/' element={
+            <>
+              <Banner />
+              <Movies />
+            </>
+          }>
+          </Route>
 
-   <Route path="/watchlist" element={<WatchList/>}/>
-      </Routes>
+          <Route path="/watchlist" element={<WatchList />} />
+        </Routes>
       </BrowserRouter>
     </>
   );
