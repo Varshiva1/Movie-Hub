@@ -1,6 +1,14 @@
 import React from 'react'
 
+import axios from 'axios';
+
 function Movies() {
+
+
+axios.get(`https://api.themoviedb.org/3/trending/movie/day?api_key=7af0a3ff53ab2ff0f3f224bb58d5b777`).then((res)=>{
+    console.log(res.data);
+})
+
     return (
         <div>
             <div className='text-2xl mb-8 font-bold text-center'>
