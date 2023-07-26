@@ -1,19 +1,20 @@
 import React from 'react'
-import next from '../images/next.png'
+import next from '../images/next.png';
+import back from '../images/back.png';
 function pagination(props) {
   let { pageNumProp, onNextProp, onPrevProp } = props
   return (
-    <div className='flex justify-center my-4 hover:scale-110 text-white'>
+    <div className=' w-100% flex justify-center my-4 text-white'>
 
 
-      <div onClick={onPrevProp} className='border-2 p2 rounded-l-xl hover:scale-110 border-blue-400'>
-       previous
+      <div onClick={onPrevProp} className='p2 rounded-r-xl hover:scale-110'>
+      <img src={back} className='w-[30px] invert'/>
       </div>
-      <div className='border-2 border-r-1'>
+      <div className='border-3 border-r-1 mx-8'>
         {pageNumProp}
       </div>
-      <div onClick={onNextProp} className='border-2 p2 rounded-r-xl hover:scale-110 border-blue-400'>
-      <img src={next} color='white'  className='w-[20px]'/>
+      <div onClick={onNextProp} className=' p2 rounded-r-xl hover:scale-110'>
+      <img src={next} className='w-[30px] invert'/>
       </div>
     </div>
   )
