@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import star from '../images/star.png'
 import axios from 'axios';
+import bookmark from '../images/bookmark (1).png'
 import { computeHeadingLevel } from '@testing-library/react';
 import Pagination from './Pagination';
 function Movies() {
 
     const [movies, setMovies] = useState([]);
     const [pageNum, setPageNum] = useState(1);
-
+const [watchList,setWatchList] = useState();
     const onNext = () => {
         setPageNum(pageNum + 1);
     }
@@ -39,14 +40,14 @@ function Movies() {
 
                 {movies.map((movie) =>
                 (
-                    <div className='w-60 overflow-hidden rounded-xl border-4 hover:scale-105 duration-300 border-gray-700 text-white -inset-600 font-bold text-centre bg-opacity-20'>
+                    <div className='w-60 overflow-hidden rounded-xl border-4 hover:scale-105 duration-300 border-gray-800 text-white -inset-600 font-bold text-centre bg-opacity-20'>
+                        <div className='absolute cursor-pointer hover:scale-110'><img src={bookmark}className='w-[30px] mx-0.5 ' alt="img"/></div>
 
 
                         <img src={`https://image.tmdb.org/t/p/original/t/p/w500/${movie.poster_path}`} alt="img" />
 
                         <div className='flex gap-2 p-3 text-white'><img src={star}className='w-[20px] p-l-2' alt="img"/>{movie.vote_average.toFixed(1)}</div>
                         <div className='flex p-3 text-white'>{movie.title}</div>
-
 
                     </div>
 
