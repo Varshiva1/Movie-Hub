@@ -23,16 +23,10 @@ function Movies() {
 
     let isPresent = watchList?.find((ele) => ele.id === movie.id);
 
-    if (!isPresent)
+    if (!isPresent){
       setWatchList([...watchList, movie]);
-
-
-    // Check if the movie is already in the watchlist to avoid duplicates
-    // if (!watchList.find((item) => item.id === movie.id)) {
-    //   setWatchList([...watchList, movie.id]);
-    //   console.log(setWatchList)
-    //   setNotification(`${movie.title} added to watchlist!`);
-    // }
+      
+    }
   };
 
   const removeFromWatchlist = (movie) => {
@@ -50,6 +44,10 @@ function Movies() {
         setMovies(res.data.results);
       });
   }, [pageNum]);
+
+useEffect(()=>{
+  localStorage.setItem('imdb',JSON.stringify(watchList));
+},[watchList])
 
   // console.log(movies)
 

@@ -1,6 +1,7 @@
-import React from 'react';
+import React,{useState,useEffect} from 'react';
 
 function WatchList(props) {
+  const [fav,setFav]=useState([])
  let movies=[
   {
     "adult":false,
@@ -19,6 +20,13 @@ function WatchList(props) {
 "vote_count": 2516
   }
  ]
+ useEffect(()=>{
+  let moviefromlocal=localStorage.getItem("imdb")
+  moviefromlocal=JSON.parse(moviefromlocal)
+  setFav(moviefromlocal)
+ },[])
+
+ 
  return (
   <table></table>
  )
