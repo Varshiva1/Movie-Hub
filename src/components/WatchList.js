@@ -1,36 +1,27 @@
-import star from "../images/star.png";
+import React from 'react';
 
 function WatchList(props) {
-  let { watchlistprop } = props
-  console.log(watchlistprop)
-  return (
-    <div>
-      <h1>Watch List</h1>
-
-      {
-        watchlistprop?.length > 0 && watchlistprop.map((movie) =>
-
-
-
-          <div
-            key={movie.id}
-            className='w-60 overflow-hidden rounded-xl border-4 hover:scale-105 duration-300 border-gray-800 text-white -inset-600 font-bold text-centre bg-opacity-20'
-          >
-            <div className='absolute cursor-pointer hover:scale-110'>
-              {/* {watchList} */}
-              {/* <img src={bookmark} className='w-[30px] mx-0.5' alt='img' /> */}
-            </div>
-            <img src={`https://image.tmdb.org/t/p/original${movie.poster_path}`} alt='img' />
-            <div className='flex gap-2 p-3 text-white'>
-              <img src={star} className='w-[20px] p-l-2' alt='img' />
-              {movie.vote_average.toFixed(1)}
-            </div>
-            <div className='flex p-3 text-white'>{movie.title}</div>
-          </div>
-        )
-      }
-    </div>
-  );
+ let movies=[
+  {
+    "adult":false,
+"backdrop_path": "/nHf61UzkfFno5X1ofIhugCPus2R.jpg",
+"id": 346698,
+"media_type": "movie",
+"original_language": "en",
+"original_title": "Barbie",
+"overview": "Barbie and Ken are having the time of their lives in the colorful and seemingly perfect world of Barbie Land. However, when they get a chance to go to the real world, they soon discover the joys and perils of living among humans.",
+"popularity": 3087.959,
+"poster_path": "/iuFNMS8U5cb6xfzi51Dbkovj7vM.jpg",
+"release_date": "2023-07-19",
+"title": "Barbie",
+"video": false,
+"vote_average": 7.496,
+"vote_count": 2516
+  }
+ ]
+ return (
+  <table></table>
+ )
 }
 
 export default WatchList;
