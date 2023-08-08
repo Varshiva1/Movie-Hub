@@ -62,8 +62,8 @@ function Movies() {
       {notification && <p>{notification}</p>}
       <div className='w-4/5 m-auto flex flex-wrap gap-5 justify-center '>
         {movies.map((movie) => (
-          <Card movie={movie} addToWatchlist={addToWatchlist} removeFromWatchlist={removeFromWatchlist}/>
-       
+          <Card movie={movie} addToWatchlist={addToWatchlist} removeFromWatchlist={removeFromWatchlist} />
+
         ))}
       </div>
       <Pagination pageNumProp={pageNum} onNextProp={onNext} onPrevProp={onPrev} />

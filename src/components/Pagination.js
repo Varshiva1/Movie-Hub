@@ -8,13 +8,13 @@ function pagination(props) {
 
 
       <div onClick={onPrevProp} className='p2 rounded-r-xl hover:scale-110'>
-      <img src={back} className='w-[30px] invert'/>
+        <img src={back} className='w-[30px] invert' />
       </div>
       <div className='border-3 border-r-1 mx-8'>
         {pageNumProp}
       </div>
       <div onClick={onNextProp} className=' p2 rounded-r-xl hover:scale-110'>
-      <img src={next} className='w-[30px] invert'/>
+        <img src={next} className='w-[30px] invert' />
       </div>
     </div>
   )

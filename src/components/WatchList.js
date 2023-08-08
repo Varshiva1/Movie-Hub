@@ -1,18 +1,18 @@
 import star from "../images/star.png";
 
 function WatchList(props) {
-  let { watchlistprop }=props
+  let { watchlistprop } = props
   console.log(watchlistprop)
   return (
     <div>
       <h1>Watch List</h1>
 
       {
-        watchlistprop?.length > 0 && watchlistprop.map((movie)=>
-        
-        
-        
-      <div
+        watchlistprop?.length > 0 && watchlistprop.map((movie) =>
+
+
+
+          <div
             key={movie.id}
             className='w-60 overflow-hidden rounded-xl border-4 hover:scale-105 duration-300 border-gray-800 text-white -inset-600 font-bold text-centre bg-opacity-20'
           >
@@ -26,9 +26,9 @@ function WatchList(props) {
               {movie.vote_average.toFixed(1)}
             </div>
             <div className='flex p-3 text-white'>{movie.title}</div>
-            </div>
-            )
-          }
+          </div>
+        )
+      }
     </div>
   );
 }
