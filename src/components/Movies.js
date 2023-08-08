@@ -31,6 +31,7 @@ function Movies() {
 
   const removeFromWatchlist = (movie) => {
     console.log(movie)
+    
     const filtered = watchList?.filter((ele) => ele.id !== movie.id);
     setWatchList(filtered)
   }
