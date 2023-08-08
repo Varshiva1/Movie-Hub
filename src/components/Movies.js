@@ -59,7 +59,8 @@ useEffect(()=>{
       <h2 className='text-5xl font-bold text-center text-white'>Trending Movies</h2>
       <div className='w-4/5 m-auto flex flex-wrap gap-5 justify-center '>
         {movies.map((movie) => (
-          <Card movie={movie} addToWatchlist={addToWatchlist} removeFromWatchlist={removeFromWatchlist} />
+       
+          <  Card key={movie.id} movie={movie} addToWatchlist={addToWatchlist} removeFromWatchlist={removeFromWatchlist} />
 
         ))}
       </div>
