@@ -3,24 +3,26 @@ import star from '../images/star.png';
 import bookmark from '../images/bookmark.svg';
 import bookmark2 from '../images/bookmark2.svg';
 
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { addToWatchList, removeFromWatchList } from '../store/slice';
 
 export default function Card({ movie,showBookmark = false}) {
   const [toggle, setToggle] = useState(false);
-
   const dispatch = useDispatch();
+  const watchList = useSelector((state)=>state.watchList.data)
+
+  
+  useEffect(()=>{
+    watchList.forEach((ele)=>ele.id === movie.id && setToggle(true))
+    
+  },[])
 
   return (
     <div
 
       className='relative w-60 overflow-hidden rounded-xl border-4 hover:scale-105 duration-300 border-gray-800 text-white -inset-600 font-bold text-centre bg-opacity-20'
     >
-
-
-
-
       <div className='drop-shadow-md hover:drop-shadow-xl absolute cursor-pointer hover:scale-110' onClick={() => {
         setToggle(!toggle);
         toggle ?

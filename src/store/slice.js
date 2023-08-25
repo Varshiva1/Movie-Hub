@@ -6,7 +6,7 @@ const watchListSlice = createSlice({
     initialState,
     reducers:{
         addToWatchList: (state,action)=>{
-
+            
             state.data.push(action.payload)
         },
         removeFromWatchList: (state,action)=>{

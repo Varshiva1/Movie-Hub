@@ -46,9 +46,6 @@ function Movies() {
       });
   }, [pageNum]);
 
-useEffect(()=>{
-  localStorage.setItem('imdb',JSON.stringify(watchList));
-},[watchList])
 
   // console.log(movies)
 
@@ -59,9 +56,7 @@ useEffect(()=>{
       <h2 className='text-5xl font-bold text-center text-white'>Trending Movies</h2>
       <div className='w-4/5 m-auto flex flex-wrap gap-5 justify-center '>
         {movies.map((movie) => (
-       
-          <  Card key={movie.id} movie={movie} showBookmark={true} />
-
+          <  Card key={movie.id} movie={movie} showBookmark={true}/>
         ))}
       </div>
       <Pagination pageNumProp={pageNum} onNextProp={onNext} onPrevProp={onPrev} />
