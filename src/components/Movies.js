@@ -60,7 +60,7 @@ useEffect(()=>{
       <div className='w-4/5 m-auto flex flex-wrap gap-5 justify-center '>
         {movies.map((movie) => (
        
-          <  Card key={movie.id} movie={movie} addToWatchlist={addToWatchlist} removeFromWatchlist={removeFromWatchlist} />
+          <  Card key={movie.id} movie={movie} showBookmark={true} />
 
         ))}
       </div>

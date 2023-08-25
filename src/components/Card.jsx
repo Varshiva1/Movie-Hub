@@ -4,9 +4,13 @@ import bookmark from '../images/bookmark.svg';
 import bookmark2 from '../images/bookmark2.svg';
 
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { addToWatchList, removeFromWatchList } from '../store/slice';
 
-export default function Card({ movie, addToWatchlist, removeFromWatchlist }) {
+export default function Card({ movie,showBookmark = false}) {
   const [toggle, setToggle] = useState(false);
+
+  const dispatch = useDispatch();
 
   return (
     <div
@@ -20,10 +24,13 @@ export default function Card({ movie, addToWatchlist, removeFromWatchlist }) {
       <div className='drop-shadow-md hover:drop-shadow-xl absolute cursor-pointer hover:scale-110' onClick={() => {
         setToggle(!toggle);
         toggle ?
-          removeFromWatchlist(movie) : addToWatchlist(movie)
+          dispatch(removeFromWatchList(movie)) : dispatch(addToWatchList(movie))
       }
       }>
-        <img src={toggle ? bookmark2 : bookmark} className='w-[40px] mx-0.3' alt='img' />
+        {
+showBookmark &&
+          <img src={toggle ? bookmark2 : bookmark} className='w-[40px] mx-0.3' alt='img' />
+        }
       </div>
 
 
