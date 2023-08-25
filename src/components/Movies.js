@@ -60,7 +60,6 @@ function Movies() {
         ))}
       </div>
       <Pagination pageNumProp={pageNum} onNextProp={onNext} onPrevProp={onPrev} />
-      <WatchList watchlistprop={watchList} />
     </div>
   );
 }
