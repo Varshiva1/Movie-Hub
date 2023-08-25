@@ -52,9 +52,9 @@ function Movies() {
 
 
   return (
-    <div className='flex flex-col gap-10 py-12'>
+    <div className='w-4/5 m-auto flex flex-col gap-10 py-12'>
       <h2 className='text-5xl font-bold text-center text-white'>Trending Movies</h2>
-      <div className='w-4/5 m-auto flex flex-wrap gap-5 justify-center '>
+      <div className=' grid grid-cols-[repeat(auto-fill,minmax(250px,1fr))] gap-5'>
         {movies.map((movie) => (
           <  Card key={movie.id} movie={movie} showBookmark={true}/>
         ))}
