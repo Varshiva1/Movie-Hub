@@ -12,7 +12,6 @@ function Movies() {
   const onNext = () => {
     setPageNum(pageNum + 1);
   };
-
   const onPrev = () => {
     if (pageNum > 1) {
       setPageNum(pageNum - 1);
