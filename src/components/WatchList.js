@@ -1,17 +1,24 @@
 import { Link } from "react-router-dom";
 import Card from "./Card";
-import { useSelector } from "react-redux";
+import {useDispatch ,useSelector } from "react-redux";
+import { removeFromWatchList } from "../store/slice"; 
 
 function WatchList() {
+    const dispatch = useDispatch();
   const watchList = useSelector((state) => state.watchList.data);
 
   return (
-    // grid-cols-[repeat(auto-fill,minmax(250px,1fr))] used for auto responsive
     <>
       {watchList.length > 0 ? (
         <div className="w-[80%] m-auto py-4 grid grid-cols-[repeat(auto-fill,minmax(250px,1fr))] gap-x-2 gap-y-4">
           {watchList.map((movie) => (
-            <Card key={movie.id} movie={movie} />
+            <Card key={movie.id} 
+            movie={movie} 
+             showBookmark={true}
+             onBookmarkClick={() => dispatch(removeFromWatchList(movie))}
+             isBookmarked={true}
+            
+            />
           ))}{" "}
         </div>
       ) : (

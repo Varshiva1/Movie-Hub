@@ -2,39 +2,24 @@ import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import Card from "./Card";
 import Pagination from "./Pagination";
+import { useDispatch, useSelector } from "react-redux";
+import { addToWatchList, removeFromWatchList } from "../store/slice"; 
+
 function Movies() {
   const [movies, setMovies] = useState([]);
   const [pageNum, setPageNum] = useState(1);
-  const [watchList, setWatchList] = useState([]);
-  // const [endOfList, setEndOfList] = useState(false);
+  // const [watchList, setWatchList] = useState([]);
 
-  const onNext = () => {
-    setPageNum(pageNum + 1);
+   const dispatch = useDispatch();
+    const watchList = useSelector((state) => state.watchList.data);
+
+  const onNext = () => {setPageNum(pageNum + 1);
   };
   const onPrev = () => {
     if (pageNum > 1) {
       setPageNum(pageNum - 1);
     }
   };
-
-  // const movieContainerRef = useRef(null);
-
-  const addToWatchlist = (movie) => {
-    let isPresent = watchList?.find((ele) => ele.id === movie.id);
-
-    if (!isPresent) {
-      setWatchList([...watchList, movie]);
-    }
-  };
-
-  const removeFromWatchlist = (movie) => {
-    console.log(movie);
-
-    const filtered = watchList?.filter((ele) => ele.id !== movie.id);
-    setWatchList(filtered);
-  };
-
-  console.log(watchList);
 
   useEffect(() => {
     axios
@@ -43,13 +28,7 @@ function Movies() {
       )
       .then((res) => {
         setMovies(res.data.results);
-        // const newMovies = res.data.results;
-        // if (newMovies.length === 0) {
-        //   setEndOfList(true);
-        // } else {
-        //   setMovies([...movies, ...newMovies]);
-        //   setPageNum(pageNum + 1);
-        // }
+   
       });
   }, [pageNum]);
 
@@ -78,17 +57,35 @@ function Movies() {
         Trending Movies
       </h2>
       <div className="grid grid-cols-[repeat(auto-fill,minmax(250px,1fr))] gap-5">
-        {movies.map((movie) => (
+        {/* {movies.map((movie) => (
           <Card key={movie.id} movie={movie} showBookmark={true} />
         ))}
-      </div>
+      </div> */}
+
+        {movies.map((movie) => {
+                const isInWatchlist = watchList.some((m) => m.id === movie.id);
+      
+                return (
+                  <Card
+                    key={movie.id}
+                    movie={movie}
+                    showBookmark={true}
+                    onBookmarkClick={() => {
+                      isInWatchlist
+                        ? dispatch(removeFromWatchList(movie))
+                        : dispatch(addToWatchList(movie));
+                    }}
+                    isBookmarked={isInWatchlist}
+                  />
+                );
+              })}
+            </div>
+
       <Pagination
         pageNumProp={pageNum}
         onNextProp={onNext}
         onPrevProp={onPrev}
       />
-
-      {/* <WatchList watchList={watchList} removeFromWatchlist={removeFromWatchlist} />   */}
     </div>
   );
 }

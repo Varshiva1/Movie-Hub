@@ -1,18 +1,28 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { initialState } from "./initialState";
+
+// Get from localStorage if available
+const saved = localStorage.getItem("watchList");
+const initialState = {
+  data: saved ? JSON.parse(saved) : [],
+};
 
 const watchListSlice = createSlice({
     name: "watchList",
     initialState,
     reducers:{
         addToWatchList: (state,action)=>{
-            
             state.data.push(action.payload)
+            localStorage.setItem("watchList", JSON.stringify(state.data)); // Update localStorage
+
         },
         removeFromWatchList: (state,action)=>{
-            const movie = action.payload;
-            const filteredData = state.data.filter((ele) => ele.id !== movie.id);
-            state.data = filteredData;
+            state.data = state.data.filter((ele) => ele.id !== action.payload.id);
+      localStorage.setItem("watchList", JSON.stringify(state.data)); // Update localStorage
+
+
+            // const movie = action.payload;
+            // const filteredData = state.data.filter((ele) => ele.id !== movie.id);
+            // state.data = filteredData;
     }
         
     }
