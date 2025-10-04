@@ -3,10 +3,13 @@ import { createSlice } from "@reduxjs/toolkit";
 // Get from localStorage if available
 const saved = localStorage.getItem("watchList");
 const streamingSaved = localStorage.getItem("streamingHistory");
+const userSaved = localStorage.getItem("user");
 const initialState = {
   data: saved ? JSON.parse(saved) : [],
   streamingHistory: streamingSaved ? JSON.parse(streamingSaved) : [],
   currentStreaming: null,
+  user: userSaved ? JSON.parse(userSaved) : null,
+  isAuthenticated: !!userSaved,
 };
 
 const watchListSlice = createSlice({
@@ -41,6 +44,21 @@ const watchListSlice = createSlice({
         clearStreamingHistory: (state) => {
             state.streamingHistory = [];
             localStorage.removeItem("streamingHistory");
+        },
+        loginUser: (state, action) => {
+            state.user = action.payload;
+            state.isAuthenticated = true;
+            localStorage.setItem("user", JSON.stringify(action.payload));
+        },
+        registerUser: (state, action) => {
+            state.user = action.payload;
+            state.isAuthenticated = true;
+            localStorage.setItem("user", JSON.stringify(action.payload));
+        },
+        logoutUser: (state) => {
+            state.user = null;
+            state.isAuthenticated = false;
+            localStorage.removeItem("user");
         }
     }
 })
@@ -51,5 +69,8 @@ export const {
     removeFromWatchList,
     addToStreamingHistory,
     setCurrentStreaming,
-    clearStreamingHistory
+    clearStreamingHistory,
+    loginUser,
+    registerUser,
+    logoutUser
 } = watchListSlice.actions

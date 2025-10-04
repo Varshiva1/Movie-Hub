@@ -91,141 +91,202 @@ const MovieDetail = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-purple-900 to-violet-900">
-      {/* Back Button */}
-      <div className="p-6">
-        <button
-          onClick={() => navigate(-1)}
-          className="flex items-center gap-2 text-white hover:text-gray-300 transition-colors"
-        >
-          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-          </svg>
-          Back
-        </button>
-      </div>
+      {/* Hero Section with Backdrop */}
+      <div className="relative">
+        {/* Backdrop Image */}
+        <div className="absolute inset-0 z-0">
+          <img
+            src={`https://image.tmdb.org/t/p/original${movie.backdrop_path}`}
+            alt={movie.title}
+            className="w-full h-96 object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/80 to-transparent"></div>
+        </div>
 
-      <div className="container mx-auto px-6 pb-12">
-        <div className="flex flex-col lg:flex-row gap-8">
-          {/* Movie Poster */}
-          <div className="lg:w-1/3">
-            <div className="relative">
-              <img
-                src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
-                alt={movie.title}
-                className="w-full rounded-xl shadow-2xl"
-              />
-              {/* Bookmark Button */}
-              <button
-                onClick={handleBookmark}
-                className="absolute top-4 right-4 p-2 bg-black bg-opacity-50 rounded-full hover:bg-opacity-70 transition-all"
-              >
+        {/* Back Button */}
+        <div className="relative z-10 p-6">
+          <button
+            onClick={() => navigate(-1)}
+            className="flex items-center gap-2 text-white hover:text-gray-300 transition-colors bg-black/30 backdrop-blur-sm rounded-lg px-4 py-2 hover:bg-black/50"
+          >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            </svg>
+            Back
+          </button>
+        </div>
+
+        {/* Hero Content */}
+        <div className="relative z-10 container mx-auto px-6 pb-12">
+          <div className="flex flex-col lg:flex-row gap-8 items-end">
+            {/* Movie Poster */}
+            <div className="lg:w-80 flex-shrink-0">
+              <div className="relative group">
                 <img
-                  src={isBookmarked ? bookmark2 : bookmark}
-                  className="w-6 h-6"
-                  alt="bookmark"
+                  src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
+                  alt={movie.title}
+                  className="w-full rounded-2xl shadow-2xl transform group-hover:scale-105 transition-transform duration-300"
                 />
-              </button>
-            </div>
-          </div>
-
-          {/* Movie Details */}
-          <div className="lg:w-2/3 text-white">
-            <h1 className="text-4xl lg:text-6xl font-bold mb-4">{movie.title}</h1>
-            
-            {/* Rating */}
-            <div className="flex items-center gap-2 mb-4">
-              <img src={star} className="w-6 h-6" alt="star" />
-              <span className="text-xl font-semibold">{movie.vote_average.toFixed(1)}/10</span>
-              <span className="text-gray-300">({movie.vote_count} votes)</span>
-            </div>
-
-            {/* Genres */}
-            <div className="flex flex-wrap gap-2 mb-6">
-              {movie.genres.map((genre) => (
-                <span
-                  key={genre.id}
-                  className="px-3 py-1 bg-purple-600 rounded-full text-sm"
+                {/* Bookmark Button */}
+                <button
+                  onClick={handleBookmark}
+                  className="absolute top-4 right-4 p-3 bg-black/60 backdrop-blur-sm rounded-full hover:bg-black/80 transition-all hover:scale-110"
                 >
-                  {genre.name}
-                </span>
-              ))}
-            </div>
-
-            {/* Overview */}
-            <div className="mb-8">
-              <h3 className="text-2xl font-bold mb-3">Overview</h3>
-              <p className="text-lg leading-relaxed text-gray-300">{movie.overview}</p>
-            </div>
-
-            {/* Movie Info */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
-              <div>
-                <h4 className="font-semibold text-lg mb-2">Release Date</h4>
-                <p className="text-gray-300">{new Date(movie.release_date).toLocaleDateString()}</p>
-              </div>
-              <div>
-                <h4 className="font-semibold text-lg mb-2">Runtime</h4>
-                <p className="text-gray-300">{movie.runtime} minutes</p>
-              </div>
-              <div>
-                <h4 className="font-semibold text-lg mb-2">Status</h4>
-                <p className="text-gray-300">{movie.status}</p>
-              </div>
-              <div>
-                <h4 className="font-semibold text-lg mb-2">Budget</h4>
-                <p className="text-gray-300">${movie.budget.toLocaleString()}</p>
-              </div>
-            </div>
-
-            {/* Streaming Options */}
-            <div className="mb-8">
-              <button
-                onClick={() => setShowStreamingOptions(!showStreamingOptions)}
-                className="bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-8 rounded-lg text-lg transition-colors flex items-center gap-2"
-              >
-                <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M8 5v14l11-7z"/>
-                </svg>
-                Where to Watch
-              </button>
-            </div>
-
-            {/* Streaming Services List */}
-            {showStreamingOptions && (
-              <div className="bg-gray-800 bg-opacity-50 rounded-lg p-6">
-                <h3 className="text-2xl font-bold mb-4">Available on:</h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {streamingServices.map((service, index) => (
-                    <div
-                      key={index}
-                      className={`p-4 rounded-lg border-2 transition-all ${
-                        service.available
-                          ? 'border-green-500 bg-green-900 bg-opacity-20 hover:bg-opacity-30 cursor-pointer'
-                          : 'border-gray-600 bg-gray-800 bg-opacity-20 opacity-50'
-                      }`}
-                      onClick={() => service.available && handleStream(service)}
-                    >
-                      <div className="flex justify-between items-center">
-                        <div>
-                          <h4 className="font-semibold text-lg">{service.name}</h4>
-                          <p className="text-gray-300">{service.price}</p>
-                          <p className="text-sm text-gray-400">{service.quality}</p>
-                        </div>
-                        <div className="text-right">
-                          {service.available ? (
-                            <span className="text-green-400 font-semibold">Available</span>
-                          ) : (
-                            <span className="text-gray-500">Not Available</span>
-                          )}
-                        </div>
-                      </div>
-                    </div>
-                  ))}
+                  <img
+                    src={isBookmarked ? bookmark2 : bookmark}
+                    className="w-6 h-6"
+                    alt="bookmark"
+                  />
+                </button>
+                {/* Play Button Overlay */}
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all duration-300 rounded-2xl flex items-center justify-center">
+                  <button className="opacity-0 group-hover:opacity-100 transform scale-75 group-hover:scale-100 transition-all duration-300 bg-red-600 hover:bg-red-700 text-white rounded-full p-4 shadow-2xl">
+                    <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M8 5v14l11-7z"/>
+                    </svg>
+                  </button>
                 </div>
               </div>
-            )}
+            </div>
+
+            {/* Movie Details */}
+            <div className="flex-1 text-white pb-8">
+              <div className="space-y-6">
+                {/* Title and Rating */}
+                <div>
+                  <h1 className="text-5xl lg:text-7xl font-bold mb-4 leading-tight">{movie.title}</h1>
+                  
+                  <div className="flex items-center gap-6 mb-6">
+                    <div className="flex items-center gap-2 bg-black/30 backdrop-blur-sm rounded-full px-4 py-2">
+                      <img src={star} className="w-6 h-6" alt="star" />
+                      <span className="text-xl font-bold">{movie.vote_average.toFixed(1)}</span>
+                      <span className="text-gray-300 text-sm">/10</span>
+                    </div>
+                    <div className="text-gray-300 text-lg">
+                      {movie.vote_count.toLocaleString()} votes
+                    </div>
+                    <div className="text-gray-300 text-lg">
+                      {movie.runtime} min
+                    </div>
+                  </div>
+                </div>
+
+                {/* Genres */}
+                <div className="flex flex-wrap gap-3">
+                  {movie.genres.map((genre) => (
+                    <span
+                      key={genre.id}
+                      className="px-4 py-2 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full text-sm font-medium shadow-lg"
+                    >
+                      {genre.name}
+                    </span>
+                  ))}
+                </div>
+
+                {/* Overview */}
+                <div className="max-w-4xl">
+                  <h3 className="text-2xl font-bold mb-4">Overview</h3>
+                  <p className="text-xl leading-relaxed text-gray-200">{movie.overview}</p>
+                </div>
+
+                {/* Action Buttons */}
+                <div className="flex flex-wrap gap-4">
+                  <button
+                    onClick={() => setShowStreamingOptions(!showStreamingOptions)}
+                    className="bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white font-bold py-4 px-8 rounded-xl text-lg transition-all transform hover:scale-105 shadow-2xl flex items-center gap-3"
+                  >
+                    <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M8 5v14l11-7z"/>
+                    </svg>
+                    Where to Watch
+                  </button>
+                  
+                  <button
+                    onClick={handleBookmark}
+                    className="bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white font-bold py-4 px-8 rounded-xl text-lg transition-all border border-white/20 flex items-center gap-3"
+                  >
+                    <img
+                      src={isBookmarked ? bookmark2 : bookmark}
+                      className="w-6 h-6"
+                      alt="bookmark"
+                    />
+                    {isBookmarked ? 'Remove from Watchlist' : 'Add to Watchlist'}
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
+      </div>
+
+      {/* Movie Info Section */}
+      <div className="container mx-auto px-6 py-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+          <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10">
+            <h4 className="font-bold text-lg mb-3 text-white">Release Date</h4>
+            <p className="text-gray-300 text-lg">{new Date(movie.release_date).toLocaleDateString('en-US', { 
+              year: 'numeric', 
+              month: 'long', 
+              day: 'numeric' 
+            })}</p>
+          </div>
+          <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10">
+            <h4 className="font-bold text-lg mb-3 text-white">Runtime</h4>
+            <p className="text-gray-300 text-lg">{movie.runtime} minutes</p>
+          </div>
+          <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10">
+            <h4 className="font-bold text-lg mb-3 text-white">Status</h4>
+            <p className="text-gray-300 text-lg">{movie.status}</p>
+          </div>
+          <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10">
+            <h4 className="font-bold text-lg mb-3 text-white">Budget</h4>
+            <p className="text-gray-300 text-lg">${movie.budget.toLocaleString()}</p>
+          </div>
+        </div>
+
+        {/* Streaming Services Section */}
+        {showStreamingOptions && (
+          <div className="bg-white/5 backdrop-blur-sm rounded-3xl p-8 border border-white/10">
+            <h3 className="text-3xl font-bold mb-8 text-white text-center">Available on Streaming Platforms</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {streamingServices.map((service, index) => (
+                <div
+                  key={index}
+                  className={`p-6 rounded-2xl border-2 transition-all transform hover:scale-105 ${
+                    service.available
+                      ? 'border-green-500/50 bg-gradient-to-br from-green-900/20 to-green-800/20 hover:from-green-900/30 hover:to-green-800/30 cursor-pointer shadow-lg hover:shadow-green-500/20'
+                      : 'border-gray-600/50 bg-gray-800/20 opacity-60'
+                  }`}
+                  onClick={() => service.available && handleStream(service)}
+                >
+                  <div className="flex flex-col space-y-4">
+                    <div className="flex justify-between items-start">
+                      <h4 className="font-bold text-xl text-white">{service.name}</h4>
+                      {service.available ? (
+                        <span className="bg-green-500 text-white px-3 py-1 rounded-full text-sm font-medium">
+                          Available
+                        </span>
+                      ) : (
+                        <span className="bg-gray-500 text-white px-3 py-1 rounded-full text-sm font-medium">
+                          Not Available
+                        </span>
+                      )}
+                    </div>
+                    <div className="space-y-2">
+                      <p className="text-gray-300 text-lg font-semibold">{service.price}</p>
+                      <p className="text-gray-400 text-sm">{service.quality} Quality</p>
+                    </div>
+                    {service.available && (
+                      <button className="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3 rounded-xl transition-colors">
+                        Stream Now
+                      </button>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
