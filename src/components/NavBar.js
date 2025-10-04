@@ -17,6 +17,9 @@ function NavBar() {
       <Link to="/Celebritylist" className="text-blue-400">
         Celebrities
       </Link>
+      <Link to="/streaming-history" className="text-blue-400">
+        History
+      </Link>
     </div>
   );
 }
